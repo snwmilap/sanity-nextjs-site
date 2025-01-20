@@ -1,11 +1,11 @@
 import SingleBlogPost from "@/components/blog/SingleBlogPost";
 import { getBlogBySlug } from "@/lib/utils";
 
-interface BlogProps {
+interface BlogPostParams  {
   params: { slug: string };
 }
 
-export default async function BlogPostPage({ params }: BlogProps) {
+export default async function BlogPostPage({ params }: BlogPostParams ) {
   const blog = await getBlogBySlug(params.slug);
 
   if (!blog) {
