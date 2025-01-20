@@ -3,6 +3,7 @@ import { useState } from "react";
 import BlogCard from "./BlogCard";
 import { BlogListProps } from "@/types/blog";
 import Section from "../ui/Section";
+import Link from "next/link";
 
 const BlogList: React.FC<BlogListProps> = ({ blogs, showLoadMore = false }) => {
   const [visibleBlogs, setVisibleBlogs] = useState(3); // Start with 3 blogs visible
@@ -40,9 +41,9 @@ const BlogList: React.FC<BlogListProps> = ({ blogs, showLoadMore = false }) => {
             </button>
           )
         ) : (
-          <a href="/blog" className="text-blue-500 hover:underline ">
+          <Link href="/blog" className="text-blue-500 hover:underline ">
             View All Posts
-          </a>
+          </Link>
         )}
       </div>
     </Section>
