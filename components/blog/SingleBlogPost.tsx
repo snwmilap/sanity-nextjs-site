@@ -1,5 +1,6 @@
-"use client"
+"use client";
 import { PortableText } from "next-sanity";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface SingleBlogPostProps {
@@ -46,10 +47,12 @@ const SingleBlogPost: React.FC<SingleBlogPostProps> = ({
           </span>
         ))}
       </div>
-      <img
+      <Image
         src={mainImage}
         alt={title}
         className="w-full h-auto object-cover rounded-lg mb-6"
+        height={600}
+        width={1200}
       />
       <div className="prose max-w-none">
         {content ? (

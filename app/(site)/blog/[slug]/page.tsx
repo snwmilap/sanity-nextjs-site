@@ -1,12 +1,14 @@
 import SingleBlogPost from "@/components/blog/SingleBlogPost";
 import { getBlogBySlug } from "@/lib/utils";
 
-interface BlogPostParams  {
-  params: { slug: string };
-}
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await params).slug;
 
-export default async function BlogPostPage({ params }: BlogPostParams ) {
-  const blog = await getBlogBySlug(params.slug);
+  const blog = await getBlogBySlug(slug);
 
   if (!blog) {
     return <div>Blog not found!</div>;
