@@ -24,6 +24,7 @@ interface CardsProps {
   shadow?: "sm" | "md" | "lg";
   radius?: "sm" | "md" | "lg";
   children?: ReactNode; // Allow custom content as children
+  darkMode?: boolean; // New prop to allow forcing dark mode
 }
 
 const Cards: React.FC<CardsProps> = ({
@@ -32,6 +33,7 @@ const Cards: React.FC<CardsProps> = ({
   radius = "md",
   blok,
   children,
+  darkMode,
 }) => {
   const { title, description, date, image, readMoreLink, tags, icon, author } =
     blok || {}; // Use blok data if provided
@@ -47,10 +49,10 @@ const Cards: React.FC<CardsProps> = ({
   // Determine shadow classes
   const shadowClasses =
     shadow === "sm"
-      ? "shadow-Card1"
+      ? "shadow-Card1 dark:shadow-darkCard1"
       : shadow === "lg"
-        ? "shadow-Card3"
-        : "shadow-Card2"; // default to "md" shadow
+        ? "shadow-Card3 dark:shadow-darkCard3"
+        : "shadow-Card2 dark:shadow-darkCard2"; // default to "md" shadow
 
   // Determine radius classes
   const radiusClasses =
@@ -62,8 +64,9 @@ const Cards: React.FC<CardsProps> = ({
 
   return (
     <article
-      className={`bg-white w-full flex flex-col relative border border-primary-500/5 ${alignmentClasses} ${shadowClasses} ${radiusClasses}`}
+      className={`bg-white dark:border-zinc-600 dark:bg-gray-800 w-full flex flex-col relative border border-primary-500/5 dark:border-primary-500/20 ${alignmentClasses} ${shadowClasses} ${radiusClasses}`}
       role="group"
+      data-dark-mode={darkMode}
     >
       {image && !author && (
         <div className="relative w-full">
@@ -79,7 +82,7 @@ const Cards: React.FC<CardsProps> = ({
         </div>
       )}
       <div
-        className={` flex flex-col gap-4 grow ${
+        className={`flex flex-col gap-4 grow ${
           image && !author ? "p-7" : "px-9 py-11"
         } ${alignmentClasses}`}
       >
@@ -102,20 +105,20 @@ const Cards: React.FC<CardsProps> = ({
             )}
           </>
         )}
-        {date && <div className="text-sm text-gray-500">{date}</div>}
+        {date && <div className="text-sm text-gray-500 dark:text-gray-400">{date}</div>}
         {title && (
-          <h2 className="text-xl font-semibold text-black line-clamp-2">
+          <h2 className="text-xl font-semibold text-black dark:text-white line-clamp-2">
             <Link href={readMoreLink || ""}>{title}</Link>
           </h2>
         )}
-        {description && <p className="line-clamp-4 grow">{description}</p>}
+        {description && <p className="line-clamp-4 grow text-gray-700 dark:text-gray-300">{description}</p>}
         {/* Render tags if available */}
         {tags && tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-2">
             {tags.map((tag, index) => (
               <span
                 key={index}
-                className="border-2 border-primary-500/10 text-primary-500 hover:bg-primary-500/10 px-4 py-1 rounded-md text-sm font-medium"
+                className="border-2 border-primary-500/10 text-primary-500 hover:bg-primary-500/10 dark:border-primary-500/30 dark:hover:bg-primary-500/30 dark:text-primary-400 px-4 py-1 rounded-md text-sm font-medium"
               >
                 {tag}
               </span>
@@ -126,7 +129,7 @@ const Cards: React.FC<CardsProps> = ({
         {readMoreLink && (
           <Link
             href={readMoreLink}
-            className="text-blue-500 text-sm hover:underline "
+            className="text-blue-500 dark:text-blue-400 text-sm hover:underline"
             aria-label="Read more"
           >
             Read More
@@ -136,8 +139,8 @@ const Cards: React.FC<CardsProps> = ({
         {/* Render author section if author data exists */}
         {author && (
           <div className="font-manrope mt-4">
-            <div className="text-black font-bold">{author.name}</div>
-            <span className="">{author.role}</span>
+            <div className="text-black dark:text-white font-bold">{author.name}</div>
+            <span className="text-gray-700 dark:text-gray-300">{author.role}</span>
           </div>
         )}
 

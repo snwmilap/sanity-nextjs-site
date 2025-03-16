@@ -4,15 +4,20 @@ import BlogCard from "./BlogCard";
 import { BlogListProps } from "@/types/blog";
 import Section from "../ui/Section";
 import Link from "next/link";
+import Button from "../ui/Button";
 
-const BlogList: React.FC<BlogListProps> = ({ blogs, showLoadMore = false }) => {
-  const [visibleBlogs, setVisibleBlogs] = useState(3); // Start with 3 blogs visible
+const BlogList: React.FC<BlogListProps> = ({
+  blogs,
+  showLoadMore = false,
+  initialVisibleBlogs = 3,
+}) => {
+  const [visibleBlogs, setVisibleBlogs] = useState(initialVisibleBlogs);
 
   const handleLoadMore = () => {
-    setVisibleBlogs((prev) => prev + 3); // Load 3 more blogs when clicked
+    setVisibleBlogs((prev) => prev + 3);
   };
 
-  const displayedBlogs = blogs.slice(0, visibleBlogs); // Show only the visible blogs
+  const displayedBlogs = blogs.slice(0, visibleBlogs);
 
   return (
     <Section className="py-10">
@@ -31,19 +36,14 @@ const BlogList: React.FC<BlogListProps> = ({ blogs, showLoadMore = false }) => {
 
       {/* Display different buttons based on the context */}
       <div className="mt-12 text-center">
-        {showLoadMore ? (
-          visibleBlogs < blogs.length && (
-            <button
-              onClick={handleLoadMore}
-              className="text-blue-500 hover:underline "
-            >
-              Load More
-            </button>
-          )
+        {showLoadMore && visibleBlogs < blogs.length ? (
+          <Button onClick={handleLoadMore}>Load More</Button>
         ) : (
-          <Link href="/blog" className="text-blue-500 hover:underline ">
-            View All Posts
-          </Link>
+          !showLoadMore && (
+            <Link href="/blog">
+              <Button>View All Posts</Button>
+            </Link>
+          )
         )}
       </div>
     </Section>

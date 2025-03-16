@@ -7,10 +7,10 @@ export default async function Home() {
   const blogs = await getBlogPosts();
 
   return (
-    <div className="">
+    <main className="grow">
       <HeroSection />
       {/* Featured Posts */}
-      <Section className="py-10 bg-white dark:bg-gray-900">
+      <Section className="py-10  ">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
             Featured Posts
@@ -20,7 +20,7 @@ export default async function Home() {
           </p>
         </div>
       </Section>
-      <BlogList blogs={blogs} />
-    </div>
+      <BlogList blogs={blogs} initialVisibleBlogs={3} />
+    </main>
   );
 }

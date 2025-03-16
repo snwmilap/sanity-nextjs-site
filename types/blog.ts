@@ -12,4 +12,5 @@ export interface Blog {
 export interface BlogListProps {
   blogs: Blog[];
   showLoadMore?: boolean;
+  initialVisibleBlogs?: number;
 }

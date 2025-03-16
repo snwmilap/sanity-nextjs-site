@@ -15,7 +15,7 @@ export default async function BlogPostPage({
   }
 
   return (
-    <main>
+    <main className="grow">
       <SingleBlogPost
         title={blog.title}
         mainImage={blog.mainImage}

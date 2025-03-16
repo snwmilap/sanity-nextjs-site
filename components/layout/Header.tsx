@@ -1,19 +1,23 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const isActive = (path: string) => pathname === path;
+
   return (
     <>
-      <nav className="border-b-1 border-b border-zinc-900/5 bg-white/90 backdrop-blur dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-200">
+      <nav className="border-b-1 border-b border-zinc-900/5 bg-white shadow-sm border-zinc-50 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-200">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="relative items-center  justify-center md:flex md:h-20 md:justify-between">
+          <div className="relative items-center justify-center md:flex md:h-20 md:justify-between">
             {/* Your logo */}
             <div className="flex h-16 w-full justify-between">
               <Link className="flex items-center gap-2" href="/">
@@ -25,7 +29,7 @@ const Header = () => {
                 <button
                   type="button"
                   onClick={toggleMobileMenu}
-                  className="relative inline-flex items-center justify-center rounded-md p-2  ring-2 ring-zinc-200 focus:outline-none focus:ring-inset"
+                  className="relative inline-flex items-center justify-center rounded-md p-2 ring-2 ring-zinc-200 focus:outline-none focus:ring-inset"
                   aria-controls="mobile-menu"
                   aria-expanded={isMobileMenuOpen ? "true" : "false"}
                 >
@@ -34,7 +38,7 @@ const Header = () => {
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
-                      fill="curre"
+                      fill="currentColor"
                     >
                       <rect
                         x="4"
@@ -65,16 +69,31 @@ const Header = () => {
               </div>
             </div>
             <div
-              className={`${isMobileMenuOpen ? "block" : "hidden "} w-full flex-1 border-t border-zinc-900/5 dark:border-white/10 md:flex md:border-t-0`}
+              className={`${
+                isMobileMenuOpen ? "block" : "hidden "
+              } w-full flex-1 border-t border-zinc-900/5 dark:border-white/10 md:flex md:border-t-0`}
             >
               <div className="flex flex-col gap-4 py-5 md:flex-row md:gap-8">
                 {/* Your menu items */}
-
                 <Link
-                  href={"/blog"}
-                  className="transform text-base font-medium text-zinc-700 duration-200 hover:text-zinc-950 dark:text-zinc-400  dark:hover:text-zinc-200 "
+                  href="/blog"
+                  className={`transform text-base font-medium duration-200  border-b-2 hover:text-zinc-950 dark:hover:text-zinc-200 ${
+                    isActive("/blog")
+                      ? " border-blue-500"
+                      : "border-transparent"
+                  }`}
                 >
                   Blog
+                </Link>
+                <Link
+                  href="/contact"
+                  className={`transform text-base font-medium duration-200 border-b-2 hover:text-zinc-950 dark:hover:text-zinc-200 ${
+                    isActive("/contact")
+                      ? "border-blue-500"
+                      : "border-transparent"
+                  }`}
+                >
+                  Contact
                 </Link>
               </div>
             </div>

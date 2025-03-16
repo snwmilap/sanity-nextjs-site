@@ -27,12 +27,12 @@ const SingleBlogPost: React.FC<SingleBlogPostProps> = ({
       {/* Back Button */}
       <button
         onClick={() => router.back()}
-        className="mb-4 px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
+        className="mb-4 px-4 py-2 "
       >
         ← Back
       </button>
       <h1 className="text-3xl font-bold mb-4">{title}</h1>
-      <div className="flex items-center space-x-4 text-gray-600 text-sm mb-6">
+      <div className="flex items-center space-x-4 text-gray-600 dark:text-gray-400 text-sm mb-6">
         {author && <p>By {author}</p>}
         {author && <p>|</p>}
         <p>{new Date(publishedAt).toDateString()}</p>
@@ -54,7 +54,7 @@ const SingleBlogPost: React.FC<SingleBlogPostProps> = ({
         height={600}
         width={1200}
       />
-      <div className="prose max-w-none">
+      <div className="prose max-w-none dark:prose-invert">
         {content ? (
           <PortableText value={content} />
         ) : (
