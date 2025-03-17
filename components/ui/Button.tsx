@@ -19,7 +19,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loadingText?: string;
 }
 
-// Simple function to combine class names - replaces clsx and twMerge
 function combineClasses(...classes: (string | undefined | false | null)[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -42,7 +41,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const baseClasses = "inline-flex items-center cursor-pointer gap-2 justify-center whitespace-nowrap transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+    const baseClasses = "inline-flex items-center cursor-pointer gap-2 justify-center whitespace-nowrap transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 disabled:pointer-events-none disabled:opacity-50";
 
     const sizeClasses = {
       xs: "h-6 px-2 text-xs font-medium",
@@ -60,71 +59,69 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       none: "rounded-none",
     };
 
-    // Map color to Tailwind classes using standard utility classes
     const getColorClasses = (color: Color, variant: ButtonVariant) => {
       const colorMap = {
         primary: {
-          solid: "bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500",
-          outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500",
-          ghost: "text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500",
-          link: "text-blue-600 hover:underline p-0 h-auto focus-visible:ring-blue-500",
-          shadow: "bg-blue-600 text-white shadow-lg hover:shadow-xl hover:bg-blue-700 focus-visible:ring-blue-500",
-          text: "text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500",
+          solid: "bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500 dark:bg-blue-700 dark:hover:bg-blue-800 dark:text-white dark:focus-visible:ring-blue-400",
+          outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500 dark:border-blue-400 dark:text-blue-400 dark:hover:text-blue-50 dark:hover:bg-blue-500 dark:focus-visible:ring-blue-400",
+          ghost: "text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/20 dark:focus-visible:ring-blue-400",
+          link: "text-blue-600 hover:underline p-0 h-auto focus-visible:ring-blue-500 dark:text-blue-400 dark:focus-visible:ring-blue-400",
+          shadow: "bg-blue-600 text-white shadow-lg hover:shadow-xl hover:bg-blue-700 focus-visible:ring-blue-500 dark:bg-blue-700 dark:hover:bg-blue-800 dark:shadow-gray-800/30 dark:focus-visible:ring-blue-400",
+          text: "text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/20 dark:focus-visible:ring-blue-400",
         },
         secondary: {
-          solid: "bg-gray-600 text-white hover:bg-gray-700 focus-visible:ring-gray-500",
-          outline: "border-2 border-gray-600 text-gray-600 hover:bg-gray-50 focus-visible:ring-gray-500",
-          ghost: "text-gray-600 hover:bg-gray-50 focus-visible:ring-gray-500",
-          link: "text-gray-600 hover:underline p-0 h-auto focus-visible:ring-gray-500",
-          shadow: "bg-gray-600 text-white shadow-lg hover:shadow-xl hover:bg-gray-700 focus-visible:ring-gray-500",
-          text: "text-gray-600 hover:bg-gray-50 focus-visible:ring-gray-500",
+          solid: "bg-gray-600 text-white hover:bg-gray-700 focus-visible:ring-gray-500 dark:bg-gray-300 dark:hover:bg-gray-400 dark:text-gray-900 dark:focus-visible:ring-gray-400",
+          outline: "border-2 border-gray-600 text-gray-600 hover:bg-gray-50 focus-visible:ring-gray-500 dark:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-800/20 dark:focus-visible:ring-gray-400",
+          ghost: "text-gray-600 hover:bg-gray-50 focus-visible:ring-gray-500 dark:text-gray-300 dark:hover:bg-gray-800/20 dark:focus-visible:ring-gray-400",
+          link: "text-gray-600 hover:underline p-0 h-auto focus-visible:ring-gray-500 dark:text-gray-300 dark:focus-visible:ring-gray-400",
+          shadow: "bg-gray-600 text-white shadow-lg hover:shadow-xl hover:bg-gray-700 focus-visible:ring-gray-500 dark:bg-gray-300 dark:hover:bg-gray-400 dark:text-gray-900 dark:shadow-gray-800/30 dark:focus-visible:ring-gray-400",
+          text: "text-gray-600 hover:bg-gray-50 focus-visible:ring-gray-500 dark:text-gray-300 dark:hover:bg-gray-800/20 dark:focus-visible:ring-gray-400",
         },
         info: {
-          solid: "bg-blue-500 text-white hover:bg-blue-600 focus-visible:ring-blue-400",
-          outline: "border-2 border-blue-500 text-blue-500 hover:bg-blue-50 focus-visible:ring-blue-400",
-          ghost: "text-blue-500 hover:bg-blue-50 focus-visible:ring-blue-400",
-          link: "text-blue-500 hover:underline p-0 h-auto focus-visible:ring-blue-400",
-          shadow: "bg-blue-500 text-white shadow-lg hover:shadow-xl hover:bg-blue-600 focus-visible:ring-blue-400",
-          text: "text-blue-500 hover:bg-blue-50 focus-visible:ring-blue-400",
+          solid: "bg-blue-500 text-white hover:bg-blue-600 focus-visible:ring-blue-400 dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white dark:focus-visible:ring-blue-300",
+          outline: "border-2 border-blue-500 text-blue-500 hover:bg-blue-50 focus-visible:ring-blue-400 dark:border-blue-300 dark:text-blue-300 dark:hover:bg-blue-900/20 dark:focus-visible:ring-blue-300",
+          ghost: "text-blue-500 hover:bg-blue-50 focus-visible:ring-blue-400 dark:text-blue-300 dark:hover:bg-blue-900/20 dark:focus-visible:ring-blue-300",
+          link: "text-blue-500 hover:underline p-0 h-auto focus-visible:ring-blue-400 dark:text-blue-300 dark:focus-visible:ring-blue-300",
+          shadow: "bg-blue-500 text-white shadow-lg hover:shadow-xl hover:bg-blue-600 focus-visible:ring-blue-400 dark:bg-blue-600 dark:hover:bg-blue-700 dark:shadow-gray-800/30 dark:focus-visible:ring-blue-300",
+          text: "text-blue-500 hover:bg-blue-50 focus-visible:ring-blue-400 dark:text-blue-300 dark:hover:bg-blue-900/20 dark:focus-visible:ring-blue-300",
         },
         success: {
-          solid: "bg-green-600 text-white hover:bg-green-700 focus-visible:ring-green-500",
-          outline: "border-2 border-green-600 text-green-600 hover:bg-green-50 focus-visible:ring-green-500",
-          ghost: "text-green-600 hover:bg-green-50 focus-visible:ring-green-500",
-          link: "text-green-600 hover:underline p-0 h-auto focus-visible:ring-green-500",
-          shadow: "bg-green-600 text-white shadow-lg hover:shadow-xl hover:bg-green-700 focus-visible:ring-green-500",
-          text: "text-green-600 hover:bg-green-50 focus-visible:ring-green-500",
+          solid: "bg-green-600 text-white hover:bg-green-700 focus-visible:ring-green-500 dark:bg-green-700 dark:hover:bg-green-800 dark:text-white dark:focus-visible:ring-green-400",
+          outline: "border-2 border-green-600 text-green-600 hover:bg-green-50 focus-visible:ring-green-500 dark:border-green-400 dark:text-green-400 dark:hover:bg-green-900/20 dark:focus-visible:ring-green-400",
+          ghost: "text-green-600 hover:bg-green-50 focus-visible:ring-green-500 dark:text-green-400 dark:hover:bg-green-900/20 dark:focus-visible:ring-green-400",
+          link: "text-green-600 hover:underline p-0 h-auto focus-visible:ring-green-500 dark:text-green-400 dark:focus-visible:ring-green-400",
+          shadow: "bg-green-600 text-white shadow-lg hover:shadow-xl hover:bg-green-700 focus-visible:ring-green-500 dark:bg-green-700 dark:hover:bg-green-800 dark:shadow-gray-800/30 dark:focus-visible:ring-green-400",
+          text: "text-green-600 hover:bg-green-50 focus-visible:ring-green-500 dark:text-green-400 dark:hover:bg-green-900/20 dark:focus-visible:ring-green-400",
         },
         warning: {
-          solid: "bg-yellow-500 text-black hover:bg-yellow-600 focus-visible:ring-yellow-400",
-          outline: "border-2 border-yellow-500 text-yellow-600 hover:bg-yellow-50 focus-visible:ring-yellow-400",
-          ghost: "text-yellow-600 hover:bg-yellow-50 focus-visible:ring-yellow-400",
-          link: "text-yellow-600 hover:underline p-0 h-auto focus-visible:ring-yellow-400",
-          shadow: "bg-yellow-500 text-black shadow-lg hover:shadow-xl hover:bg-yellow-600 focus-visible:ring-yellow-400",
-          text: "text-yellow-600 hover:bg-yellow-50 focus-visible:ring-yellow-400",
+          solid: "bg-yellow-500 text-black hover:bg-yellow-600 focus-visible:ring-yellow-400 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:text-white dark:focus-visible:ring-yellow-500",
+          outline: "border-2 border-yellow-500 text-yellow-600 hover:bg-yellow-50 focus-visible:ring-yellow-400 dark:border-yellow-400 dark:text-yellow-400 dark:hover:bg-yellow-900/20 dark:focus-visible:ring-yellow-500",
+          ghost: "text-yellow-600 hover:bg-yellow-50 focus-visible:ring-yellow-400 dark:text-yellow-400 dark:hover:bg-yellow-900/20 dark:focus-visible:ring-yellow-500",
+          link: "text-yellow-600 hover:underline p-0 h-auto focus-visible:ring-yellow-400 dark:text-yellow-400 dark:focus-visible:ring-yellow-500",
+          shadow: "bg-yellow-500 text-black shadow-lg hover:shadow-xl hover:bg-yellow-600 focus-visible:ring-yellow-400 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:text-white dark:shadow-gray-800/30 dark:focus-visible:ring-yellow-500",
+          text: "text-yellow-600 hover:bg-yellow-50 focus-visible:ring-yellow-400 dark:text-yellow-400 dark:hover:bg-yellow-900/20 dark:focus-visible:ring-yellow-500",
         },
         error: {
-          solid: "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500",
-          outline: "border-2 border-red-600 text-red-600 hover:bg-red-50 focus-visible:ring-red-500",
-          ghost: "text-red-600 hover:bg-red-50 focus-visible:ring-red-500",
-          link: "text-red-600 hover:underline p-0 h-auto focus-visible:ring-red-500",
-          shadow: "bg-red-600 text-white shadow-lg hover:shadow-xl hover:bg-red-700 focus-visible:ring-red-500",
-          text: "text-red-600 hover:bg-red-50 focus-visible:ring-red-500",
+          solid: "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500 dark:bg-red-700 dark:hover:bg-red-800 dark:text-white dark:focus-visible:ring-red-400",
+          outline: "border-2 border-red-600 text-red-600 hover:bg-red-50 focus-visible:ring-red-500 dark:border-red-400 dark:text-red-400 dark:hover:bg-red-900/20 dark:focus-visible:ring-red-400",
+          ghost: "text-red-600 hover:bg-red-50 focus-visible:ring-red-500 dark:text-red-400 dark:hover:bg-red-900/20 dark:focus-visible:ring-red-400",
+          link: "text-red-600 hover:underline p-0 h-auto focus-visible:ring-red-500 dark:text-red-400 dark:focus-visible:ring-red-400",
+          shadow: "bg-red-600 text-white shadow-lg hover:shadow-xl hover:bg-red-700 focus-visible:ring-red-500 dark:bg-red-700 dark:hover:bg-red-800 dark:shadow-gray-800/30 dark:focus-visible:ring-red-400",
+          text: "text-red-600 hover:bg-red-50 focus-visible:ring-red-500 dark:text-red-400 dark:hover:bg-red-900/20 dark:focus-visible:ring-red-400",
         },
         neutral: {
-          solid: "bg-gray-800 text-white hover:bg-gray-900 focus-visible:ring-gray-700",
-          outline: "border-2 border-gray-800 text-gray-800 hover:bg-gray-100 focus-visible:ring-gray-700",
-          ghost: "text-gray-800 hover:bg-gray-100 focus-visible:ring-gray-700",
-          link: "text-gray-800 hover:underline p-0 h-auto focus-visible:ring-gray-700",
-          shadow: "bg-gray-800 text-white shadow-lg hover:shadow-xl hover:bg-gray-900 focus-visible:ring-gray-700",
-          text: "text-gray-800 hover:bg-gray-100 focus-visible:ring-gray-700",
+          solid: "bg-gray-800 text-white hover:bg-gray-900 focus-visible:ring-gray-700 dark:bg-gray-200 dark:hover:bg-gray-300 dark:text-gray-900 dark:focus-visible:ring-gray-400",
+          outline: "border-2 border-gray-800 text-gray-800 hover:bg-gray-100 focus-visible:ring-gray-700 dark:border-gray-200 dark:text-gray-200 dark:hover:bg-gray-800/20 dark:focus-visible:ring-gray-400",
+          ghost: "text-gray-800 hover:bg-gray-100 focus-visible:ring-gray-700 dark:text-gray-200 dark:hover:bg-gray-800/20 dark:focus-visible:ring-gray-400",
+          link: "text-gray-800 hover:underline p-0 h-auto focus-visible:ring-gray-700 dark:text-gray-200 dark:focus-visible:ring-gray-400",
+          shadow: "bg-gray-800 text-white shadow-lg hover:shadow-xl hover:bg-gray-900 focus-visible:ring-gray-700 dark:bg-gray-200 dark:hover:bg-gray-300 dark:text-gray-900 dark:shadow-gray-800/30 dark:focus-visible:ring-gray-400",
+          text: "text-gray-800 hover:bg-gray-100 focus-visible:ring-gray-700 dark:text-gray-200 dark:hover:bg-gray-800/20 dark:focus-visible:ring-gray-400",
         },
       };
 
       return colorMap[color][variant];
     };
 
-    // Create loading spinner component
     const LoadingSpinner = () => (
       <svg 
         className="animate-spin -ml-1 mr-2 h-4 w-4" 
@@ -148,14 +145,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       </svg>
     );
 
-    // Handle class name collisions by prioritizing explicitly set custom classes
     const buttonClasses = combineClasses(
       baseClasses,
       sizeClasses[size],
       radiusClasses[radius],
       getColorClasses(color, variant),
       fullWidth ? "w-full" : "",
-      className // Custom classes go last to override defaults
+      className
     );
 
     return (

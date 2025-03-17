@@ -41,7 +41,7 @@ const BlogList: React.FC<BlogListProps> = ({
         ) : (
           !showLoadMore && (
             <Link href="/blog">
-              <Button>View All Posts</Button>
+              <Button variant="outline">View All Posts</Button>
             </Link>
           )
         )}
